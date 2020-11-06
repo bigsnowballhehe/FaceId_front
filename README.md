@@ -1,3 +1,10 @@
+方便看
+* npm config set registry https://registry.npm.taobao.org
+* npm i -g eslint
+* Eslint 超简单入门教程 - 简书
+https://www.jianshu.com/p/ad1e46faaea2
+
+
 # my-pro
 
 ## Project setup
