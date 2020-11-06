@@ -1,19 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    ·
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <HelloWorld msg="下次一定好好，这是一个，传值，有prop，我就传给你喽？" />
+    <LearningTest>
+      <template v-slot:default="slotProps">
+        {{ slotProps.user.age }}
+      </template>
+    </LearningTest>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import LearningTest from "./components/LearningTest";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    HelloWorld,
+    LearningTest,
+  },
+};
 </script>
 
 <style>
