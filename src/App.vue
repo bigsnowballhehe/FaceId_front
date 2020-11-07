@@ -1,17 +1,18 @@
 <template>
     <div id="app">
-        <!-- <LearningTest love="what" heat="who">
+        <LearningTest love="what" heat="who">
             <template v-slot:default="slotProps">
                 {{ slotProps.user.age }}
             </template>
-        </LearningTest> -->
+        </LearningTest>
     </div>
 </template>
 
 <script>
+import LearningTest from "./components/LearningTest.vue";
 export default {
     name: "App",
-    components: {},
+    components: { LearningTest },
     data() {
         return {};
     },
