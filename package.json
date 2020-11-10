@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "less": "^2.5.3",
     "less-loader": "^7.0.2",
+    "url-loader": "^4.1.1",
     "vue": "^2.6.11",
     "vue-router": "^3.4.9"
   },
