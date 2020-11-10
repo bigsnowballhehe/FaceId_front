@@ -9,6 +9,7 @@
                 {{ user.name }}
             </slot>
         </span>
+        <a-button type="primary">zehshi</a-button>
     </div>
 </template>
 

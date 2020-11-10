@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import router from 'vue-router'
-import LearningTest from '../components/LearningTest'
+import LearningTest from './components/LearningTest'
 
 
 Vue.use(router)
