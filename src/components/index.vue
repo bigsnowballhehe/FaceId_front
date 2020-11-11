@@ -53,7 +53,7 @@
             </a-layout-sider>
             <a-layout class="margi">
                 <a-breadcrumb style="margin: 16px 0">
-                    <a-breadcrumb-item></a-breadcrumb-item>
+                    <a-breadcrumb-item>{{ path }} </a-breadcrumb-item>
                     <a-breadcrumb-item></a-breadcrumb-item>
                 </a-breadcrumb>
                 <router-view> </router-view>
@@ -65,6 +65,8 @@
 export default {
     data() {
         return {
+            path: this.$route.path,
+            second: "",
             user: "人员管理",
             sign: "考勤管理",
             view: "可视化记录",
