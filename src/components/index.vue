@@ -1,6 +1,13 @@
 <template>
     <a-layout id="components-layout-demo-top-side-2">
-        <a-layout-header class="header"> </a-layout-header>
+        <a-layout-header class="header">
+            <div class="logo">
+                <router-link to="/index/intro" class="ative">
+                    <span>人脸识别考勤管理系统</span>
+                </router-link>
+            </div>
+        </a-layout-header>
+
         <a-layout>
             <a-layout-sider width="200" style="background: #fff">
                 <a-menu
@@ -72,12 +79,17 @@ export default {
 };
 </script>
 
-<style>
-#components-layout-demo-top-side-2 .logo {
-    width: 240px;
-    height: 62px;
-    background: rgba(255, 255, 255, 0.2);
-    float: left;
+<style scoped>
+.logo {
+    display: flex;
+}
+
+.ative {
+    font-size: 2em;
+    color: gray;
+}
+.ative:hover {
+    color: white;
 }
 </style>
 
@@ -87,6 +99,3 @@ export default {
 
 
  
-
-
-
