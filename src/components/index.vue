@@ -5,6 +5,12 @@
                 <router-link to="/index/intro" class="ative">
                     <span>人脸识别考勤管理系统</span>
                 </router-link>
+                <a
+                    class="a-link"
+                    href="https://cloud.baidu.com/"
+                    target="view_window"
+                    >特别感谢</a
+                >
             </div>
         </a-layout-header>
 
@@ -79,17 +85,27 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .logo {
     display: flex;
+    justify-content: space-between;
 }
 
 .ative {
     font-size: 2em;
     color: gray;
+    &:hover {
+        color: white;
+    }
 }
-.ative:hover {
-    color: white;
+
+.a-link {
+    color: gray;
+    font-size: 1.2em;
+    line-height: 32px;
+    &:hover {
+        color: white;
+    }
 }
 </style>
 
