@@ -9,6 +9,7 @@ import signRecord from './components/signRecord'
 import signSet from './components/signSet'
 import visualData from './components/visualData'
 import intro from './components/intro'
+
 Vue.use(router)
 
 const routers = new router({
@@ -20,7 +21,7 @@ const routers = new router({
             component: index,
             children: [
                 { path: 'intro', name: 'intro', component: intro },
-                { path: 'userList', name: 'userList', component: userList },
+                { path: 'userList', name: 'userList', component: userList, },
                 { path: 'userType', name: 'userType', component: userType },
                 { path: 'signRecord', name: 'signRecord', component: signRecord },
                 { path: 'signSet', name: 'signSet', component: signSet },
