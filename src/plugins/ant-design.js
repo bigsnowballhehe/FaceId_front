@@ -6,7 +6,9 @@ import {
     Breadcrumb,
     Icon,
     Upload,
-    Drawer
+    Drawer,
+    Table,
+    Divider
 } from 'ant-design-vue'
 
 Vue.use(Button)
@@ -16,3 +18,5 @@ Vue.use(Breadcrumb)
 Vue.use(Icon)
 Vue.use(Upload)
 Vue.use(Drawer)
+Vue.use(Table)
+Vue.use(Divider)
