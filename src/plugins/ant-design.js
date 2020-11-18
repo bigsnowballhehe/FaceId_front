@@ -8,7 +8,10 @@ import {
     Upload,
     Drawer,
     Table,
-    Divider
+    Divider,
+    Form,
+    Input,
+    Select
 } from 'ant-design-vue'
 
 Vue.use(Button)
@@ -20,3 +23,6 @@ Vue.use(Upload)
 Vue.use(Drawer)
 Vue.use(Table)
 Vue.use(Divider)
+Vue.use(Form)
+Vue.use(Input)
+Vue.use(Select)

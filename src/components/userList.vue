@@ -17,13 +17,69 @@
                 @close="onClose"
             >
                 <a-upload
-                    action="api"
+                    action=""
                     list-type="picture"
                     :default-file-list="fileList"
                     class="upload-list-inline"
                 >
-                    <a-button> <a-icon type="upload" /> 上传图片 </a-button>
+                    <a-button style="margin-bottom: 20px">
+                        <a-icon type="upload" /> 上传图片
+                    </a-button>
                 </a-upload>
+
+                <a-form
+                    :label-col="{ span: 5 }"
+                    :wrapper-col="{ span: 12 }"
+                    @submit="handleSubmit"
+                    :form="form"
+                >
+                    <a-form-item label="ID:" style="margin-top: 10px">
+                        <a-input
+                            v-decorator="[
+                                '人员ID',
+                                {
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: '请输入用户ID!',
+                                        },
+                                    ],
+                                },
+                            ]"
+                        />
+                    </a-form-item>
+
+                    <a-form-item label="类型">
+                        <a-select
+                            v-decorator="[
+                                '人员类型',
+                                {
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: '请输入人员类型!',
+                                        },
+                                    ],
+                                },
+                            ]"
+                        >
+                            <a-select-option value="员工">
+                                员工
+                            </a-select-option>
+                            <a-select-option value="兼职">
+                                兼职
+                            </a-select-option>
+                        </a-select>
+                    </a-form-item>
+                    <a-form-item label="备注">
+                        <a-input placeholder=".." />
+                    </a-form-item>
+                    <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+                        <a-button type="primary" html-type="submit">
+                            Submit
+                        </a-button>
+                    </a-form-item>
+                </a-form>
             </a-drawer>
         </div>
 
@@ -92,13 +148,6 @@ const data = [
         address: "London No. 1 Lake Park",
         tags: ["loser"],
     },
-    {
-        key: "3",
-        name: "Joe Black",
-        age: 32,
-        address: "Sidney No. 1 Lake Park",
-        tags: ["cool", "teacher"],
-    },
 ];
 export default {
     name: "userList",
@@ -106,9 +155,11 @@ export default {
     data() {
         return {
             fileList: [],
+            formLayout: "horizontal",
             visible: false,
             data,
             columns,
+            form: this.$form.createForm(this, { name: "coordinated" }),
         };
     },
     methods: {
@@ -120,6 +171,14 @@ export default {
         },
         onClose() {
             this.visible = false;
+        },
+        handleSubmit(e) {
+            e.preventDefault();
+            this.form.validateFields((err, values) => {
+                if (!err) {
+                    console.log("Received values of form: ", values);
+                }
+            });
         },
     },
 };
