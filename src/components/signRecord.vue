@@ -5,7 +5,12 @@
             <a-breadcrumb-item>考勤管理</a-breadcrumb-item>
             <a-breadcrumb-item>考勤记录</a-breadcrumb-item>
         </a-breadcrumb>
-        SignRecord
+        <div class="head" style="padding-bottom: 24px">
+            <a-button type="primary">yubei</a-button>
+        </div>
+        <div class="mainm">
+            <a-table></a-table>
+        </div>
     </div>
 </template>
 
@@ -15,5 +20,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 </style>
