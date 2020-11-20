@@ -16,6 +16,9 @@
 <script>
 export default {
     name: "visualData",
+    data() {
+        return {};
+    },
 };
 </script>
 

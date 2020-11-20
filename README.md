@@ -4,6 +4,8 @@
 * Eslint 超简单入门教程 - 简书
 https://www.jianshu.com/p/ad1e46faaea2
 
+* https://www.jianshu.com/p/7994176fbcc4    /echarts in vue
+
 
 # my-pro
 
