@@ -3,6 +3,7 @@ import App from './App.vue'
 import routers from './router'
 import './plugins/ant-design'
 import store from './vuex'
+import './plugins/echarts'
 
 
 Vue.config.productionTip = false

@@ -14,19 +14,20 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-    name: "LearningTest",
-
-    data() {
-        return {
-            postFontsize: 1,
-            user: {
-                name: "xueqiu",
-                age: "23",
-            },
-        };
+    name: "intro",
+    methods: {
+        increment() {
+            this.$store.commit("increment");
+            console.log(this.$store.state.count);
+        },
     },
-    props: ["love", "heat"],
+    computed: {
+        ...mapState({
+            count: "count",
+        }),
+    },
 };
 </script>
 
