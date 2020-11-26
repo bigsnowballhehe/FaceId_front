@@ -85,8 +85,11 @@
 
         <div class="tablem">
             <a-table :columns="columns" :data-source="data">
-                <a slot="name" slot-scope="text">{{ text }}</a>
                 <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
+
+                <a slot="name" slot-scope="text, record"
+                    >{{ text }} {{ record.name }}</a
+                >
 
                 <span slot="action" slot-scope="text, record">
                     <a>Invite 一 {{ record.name }}</a>
@@ -103,6 +106,7 @@
 </template>
 
 <script>
+// columns 格式  dataIndex作为data获取的索引   key是关键字。   slots 是暴露出的插槽  text 第一行胡数据？？ record是当前行所有数据 text是当前行值
 const columns = [
     {
         dataIndex: "name",
