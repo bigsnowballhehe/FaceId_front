@@ -34,12 +34,12 @@
 
                         <a-menu-item key="1"
                             ><router-link to="/index/userList"
-                                >人员列表</router-link
+                                >全职人员</router-link
                             >
                         </a-menu-item>
                         <a-menu-item key="2">
                             <router-link to="/index/userType"
-                                >人员类型</router-link
+                                >临时派遣</router-link
                             ></a-menu-item
                         >
                     </a-sub-menu>
@@ -66,7 +66,9 @@
                 </a-menu>
             </a-layout-sider>
             <a-layout style="padding: 0 24px 24px">
+                <keep-alive>
                 <router-view> </router-view>
+                </keep-alive>
             </a-layout>
         </a-layout>
     </a-layout>

@@ -7,4 +7,6 @@ https://segmentfault.com/a/1190000018064918?utm_source=tag-newest
 https://blog.csdn.net/weixin_40920953/article/details/85402618
 * Antd-v的文档写的真是太棒了：
 customRender 	参数分别为当前行的值，当前行数据，行索引，@return 里面可以设置表格行/列合并  
-    >  Function(text, record, index) {}  |    slot-scope
+    >  Function(text, record, index) {}  |    slot-scope  接收返回的值.. slot是customrender的值。。
+
+* https://xiangsongtao.github.io/blog/lu-you-kai-qi-keep-alive-shi-de/   keep-alive 可能的问题

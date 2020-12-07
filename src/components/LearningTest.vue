@@ -1,35 +1,186 @@
 <template>
-    <div :style="{ fontSize: postFontsize + 'em' }">
-        <button @click="postFontsize += 0.1">touch me +</button>
-        <H1>{{ love }}</H1>
-        <h2>{{ heat }}</h2>
-        <span>
-            年龄是
-            <slot v-bind:user="user">
-                {{ user.name }}
-            </slot>
-        </span>
-        <a-button type="primary">zehshi</a-button>
-    </div>
+    <a-table :data-source="data" :columns="columns">
+        <div
+            slot="filterDropdown"
+            slot-scope="{
+                setSelectedKeys,
+                selectedKeys,
+                confirm,
+                clearFilters,
+                column,
+            }"
+            style="padding: 8px"
+        >
+            <a-input
+                v-ant-ref="(c) => (searchInput = c)"
+                :placeholder="`Search ${column.dataIndex}`"
+                :value="selectedKeys[0]"
+                style="width: 188px; margin-bottom: 8px; display: block"
+                @change="
+                    (e) =>
+                        setSelectedKeys(e.target.value ? [e.target.value] : [])
+                "
+                @pressEnter="
+                    () => handleSearch(selectedKeys, confirm, column.dataIndex)
+                "
+            />
+            <a-button
+                type="primary"
+                icon="search"
+                size="small"
+                style="width: 90px; margin-right: 8px"
+                @click="
+                    () => handleSearch(selectedKeys, confirm, column.dataIndex)
+                "
+            >
+                Search
+            </a-button>
+            <a-button
+                size="small"
+                style="width: 90px"
+                @click="() => handleReset(clearFilters)"
+            >
+                Reset
+            </a-button>
+        </div>
+        <a-icon
+            slot="filterIcon"
+            slot-scope="filtered"
+            type="search"
+            :style="{ color: filtered ? '#108ee9' : undefined }"
+        />
+        <template slot="customRender" >
+            <!-- <span v-if="searchText && searchedColumn === column.dataIndex">
+                <template
+                    v-for="(fragment, i) in text               slot-scope="text, record, index, column"
+                        .toString()
+                        .split(
+                            new RegExp(
+                                `(?<=${searchText})|(?=${searchText})`,
+                                'i'
+                            )
+                        )"
+                >
+                    <mark
+                        v-if="
+                            fragment.toLowerCase() === searchText.toLowerCase()
+                        "
+                        :key="i"
+                        class="highlight"
+                        >{{ fragment }}</mark
+                    >
+                    <template v-else>{{ fragment }}</template>
+                </template>
+            </span>-->
+            <!-- <template >
+                {{ text }}
+            </template>  -->
+        </template>
+    </a-table>
 </template>
 
 <script>
-import { mapState } from "vuex";
-export default {
-    name: "intro",
-    methods: {
-        increment() {
-            this.$store.commit("increment");
-            console.log(this.$store.state.count);
-        },
+const data = [
+    {
+        key: "1",
+        name: "John Brown",
+        age: 32,
+        address: "New York No. 1 Lake Park",
     },
-    computed: {
-        ...mapState({
-            count: "count",
-        }),
+    {
+        key: "2",
+        name: "Joe Black",
+        age: 42,
+        address: "London No. 1 Lake Park",
+    },
+    {
+        key: "3",
+        name: "Jim Green",
+        age: 32,
+        address: "Sidney No. 1 Lake Park",
+    },
+    {
+        key: "4",
+        name: "Jim Red",
+        age: 32,
+        address: "London No. 2 Lake Park",
+    },
+];
+
+export default {
+    name: "LearningTest",
+    data() {
+        return {
+            data,
+            searchText: "",
+            searchInput: null,
+            searchedColumn: "",
+            columns: [
+                {
+                    title: "Name",
+                    dataIndex: "name",
+                    key: "name",
+                    scopedSlots: {
+                        filterDropdown: "filterDropdown",
+                        filterIcon: "filterIcon",
+                        customRender: "customRender",
+                    },
+                    onFilter: (value, record) =>
+                        record.name
+                            .toString()
+                            .toLowerCase()
+                            .includes(value.toLowerCase()),
+                    onFilterDropdownVisibleChange: (visible) => {
+                        if (visible) {
+                            setTimeout(() => {
+                                this.searchInput.focus();
+                            }, 0);
+                        }
+                    },
+                },
+
+                {
+                    title: "Address",
+                    dataIndex: "address",
+                    key: "address",
+                    scopedSlots: {
+                        filterDropdown: "filterDropdown",
+                        filterIcon: "filterIcon",
+                        customRender: "customRender",
+                    },
+                    onFilter: (value, record) =>
+                        record.address
+                            .toString()
+                            .toLowerCase()
+                            .includes(value.toLowerCase()),
+                    onFilterDropdownVisibleChange: (visible) => {
+                        if (visible) {
+                            setTimeout(() => {
+                                this.searchInput.focus();
+                            });
+                        }
+                    },
+                },
+            ],
+        };
+    },
+    methods: {
+        handleSearch(selectedKeys, confirm, dataIndex) {
+            confirm();
+            this.searchText = selectedKeys[0];
+            this.searchedColumn = dataIndex;
+        },
+
+        handleReset(clearFilters) {
+            clearFilters();
+            this.searchText = "";
+        },
     },
 };
 </script>
-
-<style>
+<style scoped>
+.highlight {
+    background-color: rgb(255, 192, 105);
+    padding: 0px;
+}
 </style>
