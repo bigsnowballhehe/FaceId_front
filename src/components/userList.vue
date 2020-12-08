@@ -7,6 +7,7 @@
         </a-breadcrumb>
         <!--顶部区域-->
         <div class="head"></div>
+        
 
         <div class="tablem">
             <a-table :columns="columns" :data-source="data">
