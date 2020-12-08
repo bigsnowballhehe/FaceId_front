@@ -9,22 +9,47 @@
         <div class="head"></div>
 
         <div class="tablem">
-            <a-table :columns="columns" :data-source="data" >
+            <a-table :columns="columns" :data-source="data">
                 <span slot="customTitle"><a-icon type="smile-o" /> ID</span>
-
-                <a slot="name" slot-scope="text, record"
-                    >{{ text }} {{ record.name }}</a
+                <div
+                    slot="filterDropdown"
+                    slot-scope="{ setSelectedKeys, confirm, clearFilters ,selectedKeys}"
+                    style="padding: 8px"
                 >
-
-                <span slot="action" slot-scope="text, record">
-                    <a>Invite 一 {{ record.name }}</a>
-                    <a-divider type="vertical" />
-                    <a>Delete</a>
-                    <a-divider type="vertical" />
-                    <a class="ant-dropdown-link">
-                        More actions <a-icon type="down" />
-                    </a>
-                </span>
+                    <a-input
+                        placeholder="Search name"
+                        :value="selectedKeys[0]"
+                        style="width: 188px; margin-bottom: 8px; display: block"
+                        @change="
+                            (e) =>
+                                setSelectedKeys(
+                                    e.target.value ? [e.target.value] : []
+                                )
+                        "
+                    />
+                    <a-button
+                        type="primary"
+                        icon="search"
+                        size="small"
+                        style="width: 90px; margin-right: 8px"
+                        @click="() => handleSearch(selectedKeys,confirm)"
+                    >
+                        Search
+                    </a-button>
+                    <a-button
+                        size="small"
+                        style="width: 90px"
+                        @click="() => handleReset(clearFilters)"
+                    >
+                        Reset
+                    </a-button>
+                </div>
+                <a-icon
+                    slot="filterIcon"
+                    slot-scope="filtered"
+                    type="search"
+                    :style="{ color: filtered ? '#108ee9' : undefined }"
+                />
             </a-table>
         </div>
     </div>
@@ -42,6 +67,13 @@ const columns = [
         title: "Name",
         key: "name",
         dataIndex: "name",
+        scopedSlots: {
+            filterDropdown: "filterDropdown",
+            filterIcon: "filterIcon",
+            customRender: "customRender",
+        },
+        onFilter: (value, record) =>
+            record.name.toString().toLowerCase().includes(value.toLowerCase()),
     },
     {
         title: "Phone",
@@ -63,7 +95,7 @@ export default {
     data() {
         return {
             formLayout: "horizontal",
-
+            searchText: "",
             data,
             columns,
         };
@@ -79,20 +111,14 @@ export default {
 
             // console.log(this.data);
         },
-        
-        showDrawer() {
-            this.visible = true;
+        handleSearch(selectedKeys,confirm) {
+            confirm();
+            this.searchText = selectedKeys[0]
         },
-        onClose() {
-            this.visible = false;
-        },
-        handleSubmit(e) {
-            e.preventDefault();
-            this.form.validateFields((err, values) => {
-                if (!err) {
-                    console.log("Received values of form: ", values);
-                }
-            });
+
+        handleReset(clearFilters) {
+            clearFilters();
+            this.searchText = "";
         },
     },
     mounted() {
