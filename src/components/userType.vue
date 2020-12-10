@@ -5,7 +5,25 @@
             <a-breadcrumb-item>人员管理</a-breadcrumb-item>
             <a-breadcrumb-item>临时派遣</a-breadcrumb-item>
         </a-breadcrumb>
-        <div class="head" style="padding-bottom: 24px"></div>
+        <div class="head" style="padding-bottom: 24px">
+
+
+            <a-button type="primary" @click="showDrawer">请求注册新人员</a-button>
+            <a-drawer
+                title="小程序码"
+                placement="right"
+                :closable="false"
+                :visible="visible"
+                
+                @close="onClose"
+            >
+                <div id="cx"> <img src="../../public/par.jpg" alt="小程序" ></div>
+               
+               
+            </a-drawer>
+        </div>
+
+
         <a-table :columns="columns" :data-source="data" >
             <span slot="customTitle"><a-icon type="smile-o" /> ID</span>
               <div
@@ -14,7 +32,7 @@
                     style="padding: 8px"
                 >
                     <a-input
-                        placeholder="Search name"
+                        placeholder="查找名字"
                         :value="selectedKeys[0]"
                         style="width: 188px; margin-bottom: 8px; display: block"
                         @change="
@@ -31,14 +49,14 @@
                         style="width: 90px; margin-right: 8px"
                         @click="() => handleSearch(selectedKeys,confirm)"
                     >
-                        Search
+                        查找
                     </a-button>
                     <a-button
                         size="small"
                         style="width: 90px"
                         @click="() => handleReset(clearFilters)"
                     >
-                        Reset
+                        重置
                     </a-button>
                 </div>
                 <a-icon
@@ -60,7 +78,7 @@ const columns = [
         slots: { title: "customTitle" },
     },
     {
-        title: "Name",
+        title: "姓名",
         key: "name",
         dataIndex: "name",
         scopedSlots: {
@@ -72,12 +90,12 @@ const columns = [
             record.name.toString().toLowerCase().includes(value.toLowerCase()),
     },
     {
-        title: "Phone",
+        title: "电话",
         dataIndex: "user_info",
         key: "phone",
     },
     {
-        title: "Group",
+        title: "组别",
         dataIndex: "group_id",
         key: "group",
     },
@@ -91,6 +109,7 @@ export default {
         return {
             columns,
             data,
+            visible:false
         };
     },
     methods: {
@@ -113,12 +132,27 @@ export default {
             clearFilters();
             this.searchText = "";
         },
+        showDrawer(){
+            this.visible = true
+        },
+        onClose(){
+            this.visible = false
+        }
     },
-    mounted() {
+    created() {
         this.ge();
     },
 };
 </script>
 
 <style scoped>
+
+#cx{
+    width:200px;
+    height:200px;
+    overflow: hidden;
+}
+img{
+    width:100%;
+}
 </style>
