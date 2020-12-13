@@ -16,7 +16,7 @@
                 
                 @close="onClose"
             >
-                <div id="cx"> <img src="../../public/list.jpg" alt="小程序" ></div>
+                <div id="cx"> <img src="../assets/list.jpg" alt="小程序" ></div>
                
                
             </a-drawer>

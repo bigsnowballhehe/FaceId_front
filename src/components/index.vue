@@ -2,9 +2,9 @@
     <a-layout id="components-layout-demo-top-side-2">
         <a-layout-header class="header">
             <div class="logo">
-                <router-link to="/index/intro" class="ative">
-                    <span>人脸识别考勤管理系统</span>
-                </router-link>
+                <div class="ative">
+                    <span>人脸识别考勤记录</span>
+                </div>
                 <a
                     class="a-link"
                     href="https://cloud.baidu.com/"
@@ -96,9 +96,7 @@ export default {
 .ative {
     font-size: 2em;
     color: gray;
-    &:hover {
-        color: white;
-    }
+    
 }
 
 .a-link {
