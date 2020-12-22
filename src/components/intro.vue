@@ -8,6 +8,25 @@
            <h1>考勤记录系统</h1>
            <div class="intro">
                <span>本系统是基于百度人脸识别API的考勤记录系统，可以查看关于在注册人员的考勤记录，以及更直观的可视化界面</span>
+               <h2>功能完成</h2>
+               <ul>
+                   <li></li>
+                   <li></li>
+                   <li></li>
+               </ul>
+               <h2>技术栈</h2>
+               <ul>
+                   <li>Vue</li>
+                   <li>Node</li>
+                   <li>Mongoose</li>
+               </ul>
+               <h2>技术官网</h2>
+
+               <ul>
+                   <li></li>
+                   <li></li>
+                   <li></li>
+               </ul>
            </div>
         </div>
         
