@@ -49,7 +49,7 @@
             type="search"
             :style="{ color: filtered ? '#108ee9' : undefined }"
         />
-        <template slot="customRender" >
+        <template slot="customRender">
             <!-- <span v-if="searchText && searchedColumn === column.dataIndex"> 
                 <template
                     v-for="(fragment, i) in text      接受当前行的值，然后分割         slot-scope="text, record, index, column"
@@ -166,7 +166,7 @@ export default {
     },
     methods: {
         handleSearch(selectedKeys, confirm, dataIndex) {
-            confirm();   //  可能是自带的某个办法吧？ 如果没有这个..onfilter可能就不知道？？？
+            confirm(); //  可能是自带的某个办法吧？ 如果没有这个..onfilter可能就不知道？？？
             this.searchText = selectedKeys[0];
             this.searchedColumn = dataIndex;
         },
