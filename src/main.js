@@ -5,14 +5,10 @@ import './plugins/ant-design'
 
 import './plugins/echarts'
 
-
 Vue.config.productionTip = false
 
-
-
 new Vue({
-    router: routers,
-    
+  router: routers,
 
-    render: h => h(App),
+  render: h => h(App)
 }).$mount('#app')

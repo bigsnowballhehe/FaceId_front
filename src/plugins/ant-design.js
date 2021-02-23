@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import {
-    Button,
-    Layout,
-    Menu,
-    Breadcrumb,
-    Icon,
-    Upload,
-    Drawer,
-    Table,
-    Divider,
-    Form,
-    Input,
-    Select
+  Button,
+  Layout,
+  Menu,
+  Breadcrumb,
+  Icon,
+  Upload,
+  Drawer,
+  Table,
+  Divider,
+  Form,
+  Input,
+  Select,
+  Modal
 } from 'ant-design-vue'
 
 Vue.use(Button)
@@ -26,3 +27,4 @@ Vue.use(Divider)
 Vue.use(Form)
 Vue.use(Input)
 Vue.use(Select)
+Vue.use(Modal)
