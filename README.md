@@ -31,3 +31,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+可视化图表：
+1.查看迟到人数按照日期分布.
+2.一个人迟到了的日子

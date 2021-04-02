@@ -1,9 +1,9 @@
-{
-    "compilerOptions": {
-       "target": "es2017",
-       "allowSyntheticDefaultImports": false,
-        "baseUrl": "./",
-        
-    },
-    "exclude": ["node_modules", "dist"]
-  }
+{ 
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+        "@/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

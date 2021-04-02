@@ -12,9 +12,13 @@ import {
   Form,
   Input,
   Select,
-  Modal
+  Modal,
+  DatePicker,
+  Message,
+  TimePicker,
+  Space
 } from 'ant-design-vue'
-
+Vue.prototype.$message = Message
 Vue.use(Button)
 Vue.use(Layout)
 Vue.use(Menu)
@@ -28,3 +32,6 @@ Vue.use(Form)
 Vue.use(Input)
 Vue.use(Select)
 Vue.use(Modal)
+Vue.use(DatePicker)
+Vue.use(TimePicker)
+Vue.use(Space)
