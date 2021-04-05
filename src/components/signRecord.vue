@@ -7,18 +7,25 @@
     </a-breadcrumb>
     <div class="head" style="padding-bottom: 24px">
       <div class="idCheck">
-        <a-input
-          v-model="param.id"
-          placeholder="按ID查询"
-          width="50%"
-        ></a-input>
-        <a-input
-          v-model="param.name"
-          placeholder="按姓名查询"
-          width="50%"
-        ></a-input>
+        <a-space direction="vertical">
+          <a-input
+            v-model="param.id"
+            placeholder="按ID查询"
+            width="50%"
+          ></a-input>
+          <a-input
+            v-model="param.name"
+            placeholder="按姓名查询"
+            width="50%"
+          ></a-input>
 
-        <a-button type="primary" @click="addCheck">查询</a-button>
+          <a-button type="primary" @click="addCheck">查询</a-button>
+        </a-space>
+      </div>
+      <div class="chartBtn">
+        <a-button type="primary" @click="exportExcel" :loading="exLoading"
+          >导出Excel</a-button
+        >
       </div>
     </div>
     <div class="mainm">
@@ -56,6 +63,7 @@ export default {
   name: 'signRecord',
   data() {
     return {
+      exLoading: false,
       data: [],
       columns,
       param: {
@@ -65,6 +73,32 @@ export default {
     }
   },
   methods: {
+    formatJson(filterVal, jsonData) {
+      return jsonData.map((v) =>
+        filterVal.map((j) => {
+          return v[j]
+        })
+      )
+    },
+    exportExcel() {
+      this.exLoading = true
+      import('@/utils/Export2Excel').then((excel) => {
+        const tHeader = ['id', 'name', 'time', 'group_id']
+
+        const filterVal = ['id', 'name', 'time', 'group_id']
+        const data = this.data
+        const list = this.formatJson(filterVal, data)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data: list,
+          filename: this.filename,
+          autoWidth: this.autoWidth,
+          bookType: this.bookType,
+        })
+        this.exLoading = false
+      })
+    },
+    getChart() {},
     addCheck() {
       this.getData()
     },
@@ -82,16 +116,21 @@ export default {
     },
   },
   created() {
-    this.getData()
+    //  / this.getData()
   },
 }
 </script>
 
 <style scoped>
-.idCheck {
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .idCheck {
   height: 100px;
   width: 50%;
   display: flex;
   flex-direction: column;
-}
+} */
 </style>

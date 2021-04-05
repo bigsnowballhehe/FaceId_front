@@ -6,7 +6,13 @@
       <a-breadcrumb-item>考勤设置</a-breadcrumb-item>
     </a-breadcrumb>
     <div class="head" style="padding-bottom: 24px">
-      <a-space
+      <a-modal v-model="modalVis" :footer="null" :closable="false" width="100%">
+        <div class="chartCon">
+          <v-chart :options="late" class="chart1"></v-chart>
+          <v-chart :options="name" class="chart"></v-chart>
+        </div>
+      </a-modal>
+      <a-space direction="vertical"
         ><a-range-picker
           v-model="checkDate"
           :ranges="{
@@ -27,13 +33,16 @@
           :default-value="moment('09:00:00', 'HH:mm:ss')"
         ></a-time-picker>
         <a-button type="primary" @click="postDate">查询</a-button>
+      </a-space>
+      <div class="exportExcel">
         <a-button type="primary" @click="exportExcel" :loading="exLoading"
           >导出Excel</a-button
         >
-      </a-space>
+        <a-button type="primary" v-on:click="getChart">查看图表</a-button>
+      </div>
     </div>
     <div class="mainm">
-      <a-table :columns="columns" :data-source="data"></a-table>
+      <a-table :columns="columns" :data-source="data"> </a-table>
     </div>
   </div>
 </template>
@@ -41,6 +50,7 @@
 <script>
 import axios from 'axios'
 import timeFormat from '@/utils/formatTime'
+import enudays from '@/utils/enudays'
 const columns = [
   {
     title: 'id',
@@ -56,6 +66,7 @@ const columns = [
     title: '时间',
     dataIndex: 'time',
     key: 'time',
+    scopedSlots: { customRender: 'time' },
   },
   {
     title: '组别',
@@ -69,10 +80,58 @@ export default {
   name: 'signSet',
   data() {
     return {
+      dataNameL: [],
+      checkChartFalse: false,
+      dataMonDay: [],
+      chartDate: null,
+
+      late: {
+        grid: {
+          containlabel: true,
+        },
+        xAxis: {
+          type: 'category',
+          data: [],
+          axisLabel: {
+            interval: 0,
+          },
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            data: [],
+            type: 'bar',
+          },
+        ],
+      },
+      name: {
+        grid: {
+          containlabel: true,
+        },
+        xAxis: {
+          type: 'category',
+          data: [],
+          axisLabel: {
+            interval: 0,
+          },
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            data: [],
+            type: 'bar',
+          },
+        ],
+      },
+      modalVis: false,
       columns,
       data: null,
       checkDate: null,
-      checkTime: moment('09:00:00', 'HH:mm:ss'),
+      checkTime: moment('08:00:00', 'HH:mm:ss'),
       filterHour: null,
       filterMin: null,
       exLoading: false,
@@ -82,6 +141,37 @@ export default {
     }
   },
   methods: {
+    timeFormat,
+    getChart() {
+      if (this.checkChartFalse == false) {
+        this.dataMonDay.forEach((datt) => {
+          this.chartDate.forEach((dat) => {
+            if (dat.mon == datt) {
+              dat.value += 1
+            }
+          })
+        })
+
+        this.chartDate.forEach((dat) => {
+          this.late.xAxis.data.push(dat.mon)
+          this.late.series[0].data.push(dat.value)
+        })
+
+        let tmp = {}
+        this.dataNameL.forEach((dat) => {
+          tmp[dat] = (tmp[dat] || 0) + 1
+        })
+        for (let i in tmp) {
+          this.name.xAxis.data.push(i)
+          this.name.series[0].data.push(tmp[i])
+        }
+        this.checkChartFalse = true
+      }
+
+      //console.log(this.late.xAxis.data)
+
+      this.modalVis = true
+    },
     formatJson(filterVal, jsonData) {
       return jsonData.map((v) =>
         filterVal.map((j) => {
@@ -113,10 +203,19 @@ export default {
         this.$message.error('请选择日期时间,不可为空')
       } else {
         //console.log(this.checkDate[0].unix())
+        this.chartDate = []
         this.filterHour = this.checkTime.get('hours')
         this.filterMin = this.checkTime.get('minute')
         let fir = this.checkDate[0].unix().toString()
         let sec = this.checkDate[1].unix().toString()
+        let allDate = enudays(this.checkDate[0], this.checkDate[1])
+        allDate.forEach((dat) => {
+          this.chartDate.push({
+            mon: dat.get('month') + 1 + '_' + dat.get('date'),
+            value: 0,
+          })
+        })
+        // console.log(this.chartDate)
         let param = {
           time: {
             $gt: fir,
@@ -133,15 +232,32 @@ export default {
           let fil = moment.unix(dat.time).get('hour')
           let fil1 = moment.unix(dat.time).get('minute')
           if (fil > this.filterHour) {
-            dat.time = timeFormat(dat.time)
+            //dat.time = timeFormat(dat.time)
             return dat
           }
           if (fil == this.filterHour) {
             if (fil1 > this.filterMin) {
-              dat.time = timeFormat(dat.time)
+              //dat.time = timeFormat(dat.time)
               return dat
             }
           }
+        })
+        this.dataMonDay = []
+        this.dataNameL = []
+        this.data.forEach((dat) => {
+          // 存着数据一共有的日期
+          this.dataMonDay.push(
+            moment.unix(dat.time).get('month') +
+              1 +
+              '_' +
+              moment.unix(dat.time).get('date')
+          )
+          this.dataNameL.push(dat.name)
+        })
+        console.log(this.dataNameL)
+
+        this.data.forEach((dat) => {
+          dat.time = timeFormat(dat.time)
         })
       }
     },
@@ -150,4 +266,24 @@ export default {
 </script>
 
 <style scoped>
+/* .chartCon {
+ 
+} */
+.exportExcel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.head {
+  display: flex;
+  justify-content: space-between;
+}
+.chart {
+  height: 300px;
+  width: 1000px;
+}
+.chart1 {
+  height: 300px;
+  width: 1200px;
+}
 </style>
